@@ -20,9 +20,19 @@ namespace ToDoList.Controllers
             return View(listItems);
         }
 
-        public ActionResult Create()
+        [HttpPost]
+        public ActionResult Index(ListItem listItem)
         {
-            return View();
+            using (ToDoContext db = new ToDoContext())
+            {
+                var item = db.ListItems.Find(listItem.Id);
+                item.State = listItem.State;
+                item.Deadline = listItem.Deadline;
+                item.State = listItem.State;
+                db.SaveChanges();
+            }
+
+            return View("Index");
         }
     }
 }

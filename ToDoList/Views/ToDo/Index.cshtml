@@ -1,26 +1,55 @@
-﻿@model IEnumerable<ToDoList.Models.ListItem>
-
+﻿
 @{
     Layout = null;
 }
+
+@model IEnumerable<ToDoList.Models.ListItem>
 
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>To Do list</title>
+    <title>Index</title>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('input[type="button"][value="Edit"]').click(function () {
+                $(this).closest('tr').children('.display').hide();
+                $(this).closest('tr').children('.edit').show();
+                $('input.display').hide();
+                $(this).closest('tr').find('input.edit').show();
+            });
+        });
+    </script>
 </head>
 <body>
-    <div> 
-        <table>
-            <tr>
-                <th>Description</th>
-                <th>Deadline</th>
-                <th>State</th>
-            </tr>
-            
-        </table>
-    </div>
+    @using (Html.BeginForm())
+    {
+        <div>
+            <table>
+                <tr>
+                    <th>Deadline</th>
+                    <th>Description</th>
+                    <th>State</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="display">@Html.DisplayFor(i => item.Deadline)</td>
+                        <td class="display">@Html.DisplayFor(i => item.Description)</td>
+                        <td class="display">@Html.DisplayFor(i => item.State)</td>
+                        <td class="edit" style="display:none">@Html.EditorFor(i => item.Deadline)</td>
+                        <td class="edit" style="display:none">@Html.EditorFor(i => item.Description)</td>
+                        <td class="edit" style="display:none">@Html.EditorFor(i => item.State)</td>
+                        <td><input class="edit" style="display:none" type="submit" value="Save" /></td>
+                        <td><input class="display" type="button" value="Edit" /></td>
+                        <td><input class="display" type="button" value="Start" /></td>
+                        <td><input class="display" type="button" value="Delete" /></td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
 </body>
 </html>
