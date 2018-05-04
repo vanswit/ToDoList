@@ -7,7 +7,7 @@ namespace ToDoList.Models
 {
     public class ListItem
     {
-        public int Id { get; private set; }
+        public int? Id { get; set; }
         public string Description { get; set; }
         public DateTime Deadline { get; set; }
         public string State { get; set; }
@@ -17,10 +17,11 @@ namespace ToDoList.Models
 
         }
 
-        public ListItem(string description, DateTime deadline)
+        public ListItem(int? id,string description, DateTime deadline)
         {
+            Id = id;
             Description = description;
             Deadline = deadline;
         }
     }
-}
+} 

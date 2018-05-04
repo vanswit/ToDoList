@@ -1,9 +1,8 @@
-﻿
+﻿@model ToDoList.Models.ViewModel
+
 @{
     Layout = null;
 }
-
-@model IEnumerable<ToDoList.Models.ListItem>
 
 <!DOCTYPE html>
 
@@ -20,25 +19,37 @@
                 $('input.display').hide();
                 $(this).closest('tr').find('input.edit').show();
             });
+
+            $('input[type="button"][value="Add todo"]').click(function () {
+                $(this).closest('tr').children('.hidden').show();
+                $(this).hide();
+            });
         });
     </script>
 </head>
 <body>
-    @using (Html.BeginForm())
+
+    <div>
+        <table>
+            <tr>
+                <th>Deadline</th>
+                <th>Description</th>
+                <th>State</th>
+            </tr>
+        </table>
+    </div>
+
+    @foreach (var item in Model.listItems)
     {
         <div>
-            <table>
-                <tr>
-                    <th>Deadline</th>
-                    <th>Description</th>
-                    <th>State</th>
-                </tr>
-                @foreach (var item in Model)
-                {
+            @using (Html.BeginForm())
+            {
+                <table>
                     <tr>
                         <td class="display">@Html.DisplayFor(i => item.Deadline)</td>
                         <td class="display">@Html.DisplayFor(i => item.Description)</td>
                         <td class="display">@Html.DisplayFor(i => item.State)</td>
+                        <td style="display:none">@Html.HiddenFor(i => item.Id)</td>
                         <td class="edit" style="display:none">@Html.EditorFor(i => item.Deadline)</td>
                         <td class="edit" style="display:none">@Html.EditorFor(i => item.Description)</td>
                         <td class="edit" style="display:none">@Html.EditorFor(i => item.State)</td>
@@ -47,9 +58,25 @@
                         <td><input class="display" type="button" value="Start" /></td>
                         <td><input class="display" type="button" value="Delete" /></td>
                     </tr>
-                }
-            </table>
+                </table>
+            }
         </div>
     }
-</body>
+
+    <div>
+        @using (Html.BeginForm())
+        {
+            <table>
+                <tr>
+                    <td class="hidden" style="display:none">@Html.EditorFor(i => Model.item.Description)</td>
+                    <td class="hidden" style="display:none">@Html.EditorFor(i => Model.item.Deadline)</td>
+                    <td><input type="button" value="Add todo" /></td>
+                    <td class="hidden" style="display:none"><input type="submit" value="Save" /></td>
+                </tr>
+            </table>
+        }
+        </div>
+
+    </body>
 </html>
+
