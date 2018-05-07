@@ -17,6 +17,11 @@ namespace ToDoList.Models
 
         }
 
+        public ListItem(int id)
+        {
+            Id = id;
+        }
+
         public ListItem(int? id,string description, DateTime deadline)
         {
             Id = id;
