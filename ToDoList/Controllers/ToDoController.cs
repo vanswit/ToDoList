@@ -11,13 +11,13 @@ namespace ToDoList.Controllers
     public class ToDoController : Controller
     {
         // GET: ToDo
-        //public ActionResult Index()
-        //{
-        //    ViewModel model = new ViewModel();
-        //    List<ListItem> listItems = GetListItems("new","in progress").ToList();
-        //    model.listItems = listItems;
-        //    return View(model);
-        //}
+        public ActionResult Index()
+        {
+            //ViewModel model = new ViewModel();
+            //List<ListItem> listItems = GetListItems("new", "in progress").ToList();
+            //model.listItems = listItems;
+            return View();
+        }
 
         [HttpPost]
         public ActionResult Index(ViewModel model,string submitButton)
@@ -104,7 +104,7 @@ namespace ToDoList.Controllers
             return Json(ListItemRepo.Delete(id),JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Index()
+        public JsonResult ListAll()
         {
             return Json(ListItemRepo.GetAllItems(), JsonRequestBehavior.AllowGet);
         }

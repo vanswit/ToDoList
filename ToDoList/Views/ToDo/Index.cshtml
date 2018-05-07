@@ -30,21 +30,14 @@
 
         function Load() {
             $.ajax({
-
-                url: "/ToDo/Index",
-
+                url: "/ToDo/ListAll",
                 type: "GET",
-
                 contentType: "application/json;charset=utf-8",
-
-                dataType: "json",
-
+                dataType: "text",
+              
                 success: function (result) {
-
-                    var html = '';
-
-                    $.each(result, function (key, item) {
-
+                    var html = document.body.innerHTML;
+                    $.each(JSON.parse(result), function (key, item) {
                         html += '<table>'
                         html += '<tr>'
                         html += '<td>' + item.Deadline + '</td>'
@@ -52,19 +45,13 @@
                         html += '<td>' + item.State + '</td>'
                         html += '</tr>'
                         html += '</table>'
-
                     });
-
+                    
                     $(document.body).html(html);
-
                 },
-
                 error: function (errormessage) {
-
                     alert(errormessage.responseText);
-
                 }
-
             });
         }
 

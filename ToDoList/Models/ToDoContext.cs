@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using System.Data.Entity;
 
 namespace ToDoList.Models
 {
-    public class ToDoContext : DbContext
+    public class ToDoContext : DbContext, IDisposable
     {
         public DbSet<ListItem> ListItems { get; set; }
     }
